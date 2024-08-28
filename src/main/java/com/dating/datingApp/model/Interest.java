@@ -1,5 +1,6 @@
 package com.dating.datingApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Interest {
     private String interestName;
 
     @ManyToMany(mappedBy = "interests")
+    @JsonIgnore
     private Set<User> users;
 
     public void addUser(User user) {
