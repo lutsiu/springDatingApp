@@ -1,7 +1,6 @@
 package com.dating.datingApp.exceptionHandlers;
 
 import com.dating.datingApp.exceptions.interest.InterestNotFoundException;
-import com.dating.datingApp.exceptions.user.UserNotFoundException;
 import com.dating.datingApp.helpers.ErrorResponse;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 
-public class InterestExceptinHandler {
+public class InterestExceptionHandler {
     @ExceptionHandler(InterestNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(InterestNotFoundException exc) {
         System.out.println("InterestNotFoundException caught!");
