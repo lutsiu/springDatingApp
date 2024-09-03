@@ -3,13 +3,11 @@ package com.dating.datingApp.controller;
 import com.dating.datingApp.dto.message.UpdateMessageDTO;
 import com.dating.datingApp.model.Message;
 import com.dating.datingApp.service.message.MessageService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +20,7 @@ public class MessageController {
 
     @PostMapping
     public ResponseEntity<Message> saveMessage(@RequestBody Message message) {
+        String messageText = message.getMessageText();
         Message savedMessage = service.saveMessage(message);
         return ResponseEntity.status(201).body(savedMessage);
     }
@@ -66,6 +65,21 @@ public class MessageController {
             return ResponseEntity.status(404).build();
         } else {
             return ResponseEntity.status(201).body(updatedMessage.get());
+        }
+    }
+
+    @PutMapping("/chat/{chatId}/messages/{messageId}/markAsRead")
+    public ResponseEntity<Void> markMessageAsRead(
+            @PathVariable int chatId,
+            @PathVariable int messageId,
+            @RequestParam int receiverId) {
+
+        int updatedRows = service.markAsRead(chatId, messageId, receiverId);
+
+        if (updatedRows > 0) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 

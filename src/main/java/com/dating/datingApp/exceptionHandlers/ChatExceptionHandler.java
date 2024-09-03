@@ -2,6 +2,7 @@ package com.dating.datingApp.exceptionHandlers;
 
 
 import com.dating.datingApp.exceptions.chat.ChatAlreadyExists;
+import com.dating.datingApp.exceptions.chat.ChatNotFoundException;
 import com.dating.datingApp.model.Chat;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -23,5 +24,13 @@ public class ChatExceptionHandler {
         );
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
-
+    @ExceptionHandler(ChatNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleChatWasntFound(ChatNotFoundException exc) {
+        ErrorResponse response = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                "Chat wasn't found",
+                exc.getMessage()
+        );
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }

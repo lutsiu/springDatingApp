@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
@@ -51,12 +52,13 @@ public class MessageDAOImpl implements MessageDAO {
 
     @Override
     @Transactional
-    public int markAsRead(int receiverId, int chatId) {
+    public int markAsRead(int chatId, int messageId, int receiverId) {
         String query = "UPDATE Message m SET m.readAt = :now WHERE m.chatId " +
-                "= :chatId AND m.senderId != :receiverId AND m.readAT IS NULL ";
+                "= :chatId AND m.id = :messageId AND m.senderId != :receiverId AND m.readAt IS NULL ";
         int updatedRows = entityManager.createQuery(query)
                 .setParameter("now", LocalDateTime.now())
                 .setParameter("chatId", chatId)
+                .setParameter("messageId", messageId)
                 .setParameter("receiverId", receiverId)
                 .executeUpdate();
         return updatedRows;

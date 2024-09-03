@@ -21,6 +21,6 @@
 
         void deleteMessage(int id);
 
-        int markAsRead(int receiverId, int chatId);
+        int markAsRead(int chatId, int messageId, int receiverId);
 
     }
