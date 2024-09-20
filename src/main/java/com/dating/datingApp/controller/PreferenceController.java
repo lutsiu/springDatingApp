@@ -2,6 +2,7 @@ package com.dating.datingApp.controller;
 
 import com.dating.datingApp.model.Preference;
 import com.dating.datingApp.service.preference.PreferenceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ public class PreferenceController {
     private PreferenceService service;
 
     @PostMapping
-    private ResponseEntity<Preference> savePreference(@RequestBody Preference preference) {
+    private ResponseEntity<Preference> savePreference(@Valid @RequestBody Preference preference) {
         Preference savedPreference = service.savePreference(preference);
         if (savedPreference == null) {
             return ResponseEntity.badRequest().build();
@@ -25,7 +26,7 @@ public class PreferenceController {
         return ResponseEntity.ok(savedPreference);
     }
     @PutMapping
-    private ResponseEntity<Preference> updatePreference(@RequestBody Preference preference) {
+    private ResponseEntity<Preference> updatePreference(@Valid @RequestBody Preference preference) {
         Preference updatedPreference = service.changePreference(preference);
         if (updatedPreference == null) {
             return ResponseEntity.badRequest().build();
