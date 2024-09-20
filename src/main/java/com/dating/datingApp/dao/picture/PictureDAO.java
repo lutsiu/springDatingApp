@@ -14,5 +14,4 @@ public interface PictureDAO {
 
     void deletePicture(int id);
 
-    void setAsProfilePicture(Picture picture);
 }

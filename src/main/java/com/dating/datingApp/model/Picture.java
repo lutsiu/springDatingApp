@@ -24,10 +24,7 @@ public class Picture {
     private int userId;
 
     @Column(name = "picture_url", nullable = false)
-    private String photoUrl;
-
-    @Column(name = "is_profile_picture", nullable = false)
-    private boolean isProfilePhoto;
+    private String pictureUrl;
 
     @CreationTimestamp
     @Column(name = "uploaded_at", nullable = false)

@@ -47,17 +47,13 @@ public class PictureController {
         }
     }
 
-    @PutMapping("/{pictureId}")
-    private ResponseEntity<Void> setAsProfilePicture(@PathVariable int pictureId) {
-        Picture picture = service.getPicture(pictureId);
 
-        if (picture == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            service.setAsProfilePicture(picture);
-            return ResponseEntity.noContent().build();
-        }
+    @PutMapping("/setProfilePicture/{userId}")
+    public ResponseEntity<String> setProfilePicture(@PathVariable int userId, @RequestParam String newProfilePicture) {
+        service.updateUserProfilePicture(userId, newProfilePicture);
+        return ResponseEntity.ok("Profile picture updated successfully");
     }
+
 
     @DeleteMapping("/{pictureId}")
     private ResponseEntity<Void> deletePicture(@PathVariable int pictureId) {

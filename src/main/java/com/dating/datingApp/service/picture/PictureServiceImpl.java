@@ -35,6 +35,15 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
+    public void updateUserProfilePicture(int userId, String newProfilePicture) {
+        User user = userDAO.getUser(userId);
+        if (user == null) {
+            throw new UserNotFoundException(userId);
+        }
+        userDAO.updateUserProfilePicture(userId, newProfilePicture);
+    }
+
+    @Override
     public List<Picture> getAllUserPictures(int userId) {
         User user = userDAO.getUser(userId);
         if (user == null) {
@@ -52,8 +61,4 @@ public class PictureServiceImpl implements PictureService {
         dao.deletePicture(id);
     }
 
-    @Override
-    public void setAsProfilePicture(Picture picture) {
-        dao.setAsProfilePicture(picture);
-    }
 }

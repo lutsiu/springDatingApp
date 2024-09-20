@@ -17,6 +17,7 @@ public interface UserDAO {
 
     void deleteUser(User user);
 
+
     // userInterest
 
     void addInterestToUser(int userId, Interest interest);

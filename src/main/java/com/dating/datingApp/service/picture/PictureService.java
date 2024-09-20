@@ -14,7 +14,5 @@ public interface PictureService {
 
     void deletePicture(int id);
 
-    void setAsProfilePicture(Picture picture);
-
-
+    void updateUserProfilePicture(int userId, String newProfilePicture);
 }

@@ -4,6 +4,7 @@ import com.dating.datingApp.model.Picture;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class PictureDAOImpl implements PictureDAO {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Picture savePicture(Picture photo) {
         entityManager.persist(photo);
         return photo;
@@ -33,6 +35,7 @@ public class PictureDAOImpl implements PictureDAO {
     }
 
     @Override
+    @Transactional
     public void deletePicture(int id) {
         Picture picture = entityManager.find(Picture.class, id);
         if (picture !=null) {
@@ -40,15 +43,5 @@ public class PictureDAOImpl implements PictureDAO {
         }
     }
 
-    @Override
-    public void setAsProfilePicture(Picture newProfilePicture) {
-        String query = "UPDATE Picture p SET p.isProfilePicture = false WHERE" +
-                " p.userId = :userId AND p.isProfilePicture = true";
-        entityManager.createQuery(query, Picture.class)
-                .setParameter("userId", newProfilePicture.getUserId())
-                .executeUpdate();
 
-        newProfilePicture.setProfilePhoto(true);
-        entityManager.merge(newProfilePicture);
-    }
 }
